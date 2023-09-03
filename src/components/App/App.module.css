@@ -1,0 +1,12 @@
+.app {
+    height: 100vh;
+    background-color: #f3f7fa;
+    padding-top: 50px;
+}
+
+.app__search {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 50px;
+}

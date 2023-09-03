@@ -1,0 +1,20 @@
+.tranfers__filter {
+    background-color: #fff;
+    padding: 20px 27px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.10);
+    width: 232px;
+    height: 252px;
+}
+
+.tranfers__filter__title {
+    text-transform: uppercase;
+    color: #4a4a4a;
+    font-size: 12px;
+    line-height: 12px; /* 100% */
+    letter-spacing: 0.5px;
+}
+
+.tranfers__filter__params {
+    margin-top: 10px;
+}

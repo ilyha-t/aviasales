@@ -1,0 +1,20 @@
+.segment__route__item {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.segment__title {
+    color: #A0B0B9;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.segment__time {
+    color: #4A4A4A;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 600;
+    font-style: normal;
+}
