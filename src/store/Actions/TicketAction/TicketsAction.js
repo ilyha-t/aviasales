@@ -32,4 +32,44 @@ const sortByeOptimal = (tickets) => {
     };
 }
 
-export { showMoreTickets, sortByePrice, sortByeDuration, sortByeOptimal };
+const filterTickets = (filters, id) => {
+    let action = new Object({type: 'FILTER_TICKETS'});
+
+    const isAll = (id) => {
+        let newMas = [...filters, id];
+        let isAll = newMas.indexOf(1) !== -1 ? true : false;
+
+        // Включение всех галочек при нажатии "Все", либо при проставлении каждого чекбокса по отдельности
+        if(id === 1 ) {
+            return [1,2,3,4,5];
+        //    Выключение чекбокса "Все" при нажатии на любой другой чекбокс
+        } else if(isAll && id !== 1) {
+            console.log(filters)
+            const index = filters.findIndex(filterId => filterId === id);
+            console.log(index);
+            const withoutCurrentId = [
+                ...filters.slice(0,index),
+                ...filters.slice(index + 1)
+            ];
+            console.log(withoutCurrentId)
+            return withoutCurrentId.filter(id => (id !== 1));
+        } else {
+            return newMas;
+        }
+    };
+
+    switch (id) {
+        case '1':
+            return {...action, payload: { filters: isAll(1) } };
+        case '2':
+            return {...action, payload: { filters: isAll(2) } };
+        case '3':
+            return {...action, payload: { filters: isAll(3) } };
+        case '4':
+            return {...action, payload: { filters: isAll(4) } };
+        case '5':
+            return {...action, payload: { filters: isAll(5) } };
+    }
+}
+
+export { showMoreTickets, sortByePrice, sortByeDuration, sortByeOptimal, filterTickets };

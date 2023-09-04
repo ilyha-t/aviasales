@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, Fragment} from "react";
 
 import TransfersFilter from "../Filter/TransfersFilter/TransfersFilter";
 import TicketsList from "../TicketsList/TicketsList";
@@ -9,6 +9,7 @@ import Logotype from "../Logotype/Logotype";
 import {fetchDataFromServer} from "../../store/Actions/NetworkAction/NetworkAction";
 
 function App() {
+    const { error } = useSelector(state => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -17,11 +18,16 @@ function App() {
 
     return (
         <div className={cl.app}>
-            <Logotype />
-            <section className={cl.app__search}>
-                <TransfersFilter />
-                <TicketsList />
-            </section>
+            {!error ?
+                <Fragment>
+                    <Logotype />
+                    <section className={cl.app__search}>
+                        <TransfersFilter />
+                        <TicketsList />
+                    </section>
+                </Fragment> :
+                <div>Технические неполадки! Попробуйте перезагрузить страницу.</div>
+            }
         </div>
     );
 }

@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
     error: null,
     showTicket: 3,
+    filters: [],
 };
 
 function reducer(state = initialState, action) {
@@ -24,6 +25,8 @@ function reducer(state = initialState, action) {
             return {...state, tab: action.payload.tab, tickets: {...state.tickets, ...action.payload.tickets}};
         case 'SHOW_MORE_TICKETS':
             return {...state, showTicket: state.showTicket + action.payload};
+        case 'FILTER_TICKETS':
+            return {...state, filters: action.payload.filters}
         case 'CHANGE_TAB':
             return {...state, tab: action.payload};
         case 'GET_TICKETS':

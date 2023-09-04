@@ -20,7 +20,7 @@ const getTicketsError = (error) => {
     }
 }
 
-export const fetchDataFromServer = (searchId) => {
+export const fetchDataFromServer = () => {
     return async (dispatch) => {
         try {
             const networkService = new NetworkService();
@@ -29,10 +29,10 @@ export const fetchDataFromServer = (searchId) => {
                 .then((data) => networkService.getTickets(data.searchId))
                 .then(data => {
                     console.log(data);
-                    dispatch(getTicketsSuccess(data))});
+                    dispatch(getTicketsSuccess(data))})
+                .catch((e) => dispatch(getTicketsError(e)));
         } catch(e) {
             dispatch(getTicketsError(e));
         }
     }
-
 }
