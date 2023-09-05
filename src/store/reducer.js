@@ -2,11 +2,15 @@ const initialState = {
     tab: 1,
     tickets: {
         tickets: [],
+        sortedTickets: []
     },
     loading: false,
     error: null,
     showTicket: 3,
-    filters: [],
+    filters: {
+        total: 5,
+        checked: [1, 2, 3, 4, 5]
+    }
 };
 
 function reducer(state = initialState, action) {
@@ -26,9 +30,11 @@ function reducer(state = initialState, action) {
         case 'SHOW_MORE_TICKETS':
             return {...state, showTicket: state.showTicket + action.payload};
         case 'FILTER_TICKETS':
-            return {...state, filters: action.payload.filters}
+            return {...state, filters: {...action.payload}}
         case 'CHANGE_TAB':
             return {...state, tab: action.payload};
+        case 'APPLY_SELECTED_FILTERS':
+            return {...state, tickets: {...state.tickets, sortedTickets: action.payload}}
         case 'GET_TICKETS':
             return {...state, tickets: {...state.tickets, ...action.payload}};
         default:

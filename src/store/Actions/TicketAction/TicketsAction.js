@@ -32,44 +32,70 @@ const sortByeOptimal = (tickets) => {
     };
 }
 
-const filterTickets = (filters, id) => {
+const filterTickets = (filters, filter) => {
     let action = new Object({type: 'FILTER_TICKETS'});
 
-    const isAll = (id) => {
-        let newMas = [...filters, id];
-        let isAll = newMas.indexOf(1) !== -1 ? true : false;
-
-        // Включение всех галочек при нажатии "Все", либо при проставлении каждого чекбокса по отдельности
-        if(id === 1 ) {
-            return [1,2,3,4,5];
-        //    Выключение чекбокса "Все" при нажатии на любой другой чекбокс
-        } else if(isAll && id !== 1) {
-            console.log(filters)
-            const index = filters.findIndex(filterId => filterId === id);
-            console.log(index);
-            const withoutCurrentId = [
-                ...filters.slice(0,index),
-                ...filters.slice(index + 1)
-            ];
-            console.log(withoutCurrentId)
-            return withoutCurrentId.filter(id => (id !== 1));
-        } else {
-            return newMas;
+    const matchFilters = (filter) => {
+        // Если нажата кнопка "Все" и все чекбоксы отмечены выделенным - снимаем все чекбоксы
+        if (filter.id === 1 && filters.checked.length === filters.total) {
+            console.log({...filters, checked: []})
+            return {...filters, checked: []};
+            // Если нажата кнопка "Все" - выбираем все чекбоксы
+        } else if(filter.id === 1 && filters.checked.length !== filters.total) {
+            console.log({...filters, checked: [1,2,3,4,5]})
+            return {...filters, checked: [1,2,3,4,5]};
+        //    Если выбранный чекбокс был ранее активен и нажата кнопка "Все" - снимаем активацию выбранного чекбокса и "Все"
+        } else if(filters.checked.indexOf(filter.id) !== -1 && filters.checked.indexOf(1) !== -1) {
+            console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1)})
+            return {...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1)}
+            //    Если выбранный чекбокс был ранее активен - снимаем активацию выбранного чекбокса
+        } else if(filters.checked.indexOf(filter.id) !== -1) {
+            console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id)})
+            return {...filters, checked: filters.checked.filter(filId => filId !== filter.id)}
         }
+        //    Если выбраны все чекбоксы - делаем "Все" активным
+         else if(filters.checked.indexOf(filter.id) === -1 && [...filters.checked, filter.id].length === filters.total - 1) {
+             console.log({...filters, checked: [...filters.checked, filter.id, 1]})
+            return {...filters, checked: [...filters.checked, filter.id, 1]}
+        }
+        //    Если выбранный чекбокс был ранее неактивен - делаем его активным
+        else if(filters.checked.indexOf(filter.id) === -1) {
+            console.log({...filters, checked: [...filters.checked, filter.id]})
+            return {...filters, checked: [...filters.checked, filter.id]}
+        }
+
     };
 
-    switch (id) {
-        case '1':
-            return {...action, payload: { filters: isAll(1) } };
-        case '2':
-            return {...action, payload: { filters: isAll(2) } };
-        case '3':
-            return {...action, payload: { filters: isAll(3) } };
-        case '4':
-            return {...action, payload: { filters: isAll(4) } };
-        case '5':
-            return {...action, payload: { filters: isAll(5) } };
-    }
+    return {...action, payload: matchFilters(filter) };
 }
 
-export { showMoreTickets, sortByePrice, sortByeDuration, sortByeOptimal, filterTickets };
+const applyFilterTickets = (tickets, filters) => {
+    console.log(tickets, filters);
+    const applyFilters = (tickets, filters) => {
+        // Если выбран фильтр Все - возвращаем без сортировки
+        if(filters.checked.length === filters.total) {
+            return tickets;
+        } else {
+            let applyFiltersTickets = [];
+            for (const ticket of tickets) {
+                let isGood = false;
+                for(const segment of ticket.segments) {
+                    if(filters.indexOf(segment.stops.length) !== -1) {
+                        isGood = true;
+                    }
+                }
+                if(isGood) {
+                    applyFiltersTickets.push(ticket);
+                }
+            }
+            return applyFiltersTickets;
+        }
+    }
+
+    return {
+        type: 'APPLY_SELECTED_FILTERS',
+        payload: applyFilters(tickets, filters),
+    };
+};
+
+export { showMoreTickets, sortByePrice, sortByeDuration, sortByeOptimal, filterTickets, applyFilterTickets };

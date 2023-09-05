@@ -28,8 +28,9 @@ export const fetchDataFromServer = () => {
             networkService.initiationSearch()
                 .then((data) => networkService.getTickets(data.searchId))
                 .then(data => {
-                    console.log(data);
-                    dispatch(getTicketsSuccess(data))})
+                    console.log(data)
+                    dispatch(getTicketsSuccess(data))
+                })
                 .catch((e) => dispatch(getTicketsError(e)));
         } catch(e) {
             dispatch(getTicketsError(e));

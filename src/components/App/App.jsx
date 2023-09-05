@@ -1,15 +1,16 @@
 import React, {useEffect, Fragment} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import TransfersFilter from "../Filter/TransfersFilter/TransfersFilter";
 import TicketsList from "../TicketsList/TicketsList";
-import {useDispatch, useSelector} from "react-redux";
+import {fetchDataFromServer} from "../../store/Actions/NetworkAction/NetworkAction";
+import {applyFilterTickets} from "../../store/Actions/TicketAction/TicketsAction";
 
 import cl from './App.module.css';
 import Logotype from "../Logotype/Logotype";
-import {fetchDataFromServer} from "../../store/Actions/NetworkAction/NetworkAction";
 
 function App() {
-    const { error } = useSelector(state => state);
+    const { error, tickets } = useSelector(state => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
