@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {applyFilterTickets, filterTickets} from "../../../../store/Actions/TicketAction/TicketsAction";
@@ -9,6 +9,10 @@ function FilterItem({ filter }) {
     const { filters, tickets } = useSelector(state => state);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        console.log(filters);
+    }, [filters])
+
     return (
         <div className={cl.filter__item}>
             <input type="checkbox"
@@ -16,7 +20,7 @@ function FilterItem({ filter }) {
                    className={cl.filter__checkbox}
                    onChange={() => {
                        dispatch(filterTickets(filters, filter));
-                       dispatch(applyFilterTickets(tickets, filters));
+                       // dispatch(applyFilterTickets(tickets, filters));
                    }}
                    checked={filters.checked.indexOf(filter.id) !== -1 ? true : false}
             />
