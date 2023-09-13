@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import cl from './TabFilter.module.css';
@@ -7,6 +7,20 @@ import {sortByeDuration, sortByeOptimal, sortByePrice} from "../../../store/Acti
 function TabFilter() {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        switch(state.tab) {
+            case 2:
+                dispatch(sortByeDuration(state.tickets.tickets));
+                break;
+            case 3:
+                dispatch(sortByeOptimal(state.tickets.tickets));
+                break;
+            default:
+                dispatch(sortByePrice(state.tickets.tickets));
+                break;
+        }
+    }, [state.tickets.tickets])
 
     return (
         <ul className={cl.tabs__filter}>

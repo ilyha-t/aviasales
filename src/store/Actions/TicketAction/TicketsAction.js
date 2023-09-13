@@ -27,7 +27,7 @@ const sortByeOptimal = (tickets) => {
         type: 'SORT_BYE_OPTIMAL',
         payload: {
             tab: 3,
-            tickets: tickets.sort((a, b) => (a.price > b.price) && (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration) ? 1 : -1),
+            tickets: tickets.sort((a, b) => a.price + (1000 * Math.floor((a.segments[0].duration + a.segments[1].duration) / 60)) > b.price + (1000 * Math.floor((b.segments[0].duration + b.segments[1].duration) / 60)) ? 1 : -1)
         },
     };
 }
@@ -46,8 +46,8 @@ const filterTickets = (filters, filter) => {
             return {...filters, checked: [1,2,3,4,5], total_stop: [-1,0,1,2,3]};
         //    Если выбранный чекбокс был ранее активен и нажата кнопка "Все" - снимаем активацию выбранного чекбокса и "Все"
         } else if(filters.checked.indexOf(filter.id) !== -1 && filters.checked.indexOf(1) !== -1) {
-            console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1),total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop && filId !== 1)})
-            return {...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1),total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop && filId !== 1)}
+            console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1),total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop && filId !== -1)})
+            return {...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1),total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop && filId !== -1)}
             //    Если выбранный чекбокс был ранее активен - снимаем активацию выбранного чекбокса
         } else if(filters.checked.indexOf(filter.id) !== -1) {
             console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id), total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop)})

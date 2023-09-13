@@ -42,7 +42,7 @@ export const fetchDataFromServer = () => {
                   tickets = [...tickets, ...newPartTickets.tickets];
                   console.log(tickets);
                   if (!newPartTickets.stop) {
-                      setTimeout(fetchTickets, 150);
+                      setTimeout(fetchTickets, 500);
                   } else {
                       dispatch(getTicketsSuccess(tickets));
                   }
