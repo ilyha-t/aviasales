@@ -55,8 +55,8 @@ const filterTickets = (filters, filter) => {
         }
         //    Если выбраны все чекбоксы - делаем "Все" активным
          else if(filters.checked.indexOf(filter.id) === -1 && [...filters.checked, filter.id].length === filters.total - 1) {
-             console.log({...filters, checked: [...filters.checked, filter.id, 1], total_stop: [...filter.total_stop, filter.total_stop, -1]})
-            return {...filters, checked: [...filters.checked, filter.id, 1], total_stop: [...filter.total_stop, filter.total_stop, -1]}
+             console.log({...filters, checked: [...filters.checked, filter.id, 1], total_stop: [...filters.total_stop, filter.total_stop, -1]})
+            return {...filters, checked: [...filters.checked, filter.id, 1], total_stop: [...filters.total_stop, filter.total_stop, -1]}
         }
         //    Если выбранный чекбокс был ранее неактивен - делаем его активным
         else if(filters.checked.indexOf(filter.id) === -1) {

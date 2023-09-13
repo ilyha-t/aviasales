@@ -42,7 +42,7 @@ export const fetchDataFromServer = () => {
                   tickets = [...tickets, ...newPartTickets.tickets];
                   console.log(tickets);
                   if (!newPartTickets.stop) {
-                      setTimeout(fetchTickets, 500);
+                      setTimeout(fetchTickets, 250);
                   } else {
                       dispatch(getTicketsSuccess(tickets));
                   }
@@ -52,30 +52,6 @@ export const fetchDataFromServer = () => {
             };
 
             fetchTickets();
-
-            // do {
-            //     newPartTickets = await networkService.getTickets(apiKey.searchId);
-            //     tickets = [...tickets, ...newPartTickets.tickets];
-            //     console.log(tickets);
-            // } while (!newPartTickets.stop);
-            //
-            // dispatch(getTicketsSuccess(tickets));
-
-                // .then((data) => {
-                //     console.log(data);
-                //     let tickets = [];
-                //     let newPartTickets;
-                //     do {
-                //         newPartTickets = networkService.getTickets(data.searchId);
-                //         tickets = [...tickets, newPartTickets];
-                //     } while(!newPartTickets.stop);
-                //     return tickets;
-                // })
-                // .then(tickets => {
-                //     console.log(tickets)
-                //     dispatch(getTicketsSuccess(tickets))
-                // })
-                // .catch((e) => dispatch(getTicketsError(e)));
         } catch(e) {
             dispatch(getTicketsError(e));
         }

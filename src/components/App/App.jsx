@@ -8,6 +8,7 @@ import {applyFilterTickets} from "../../store/Actions/TicketAction/TicketsAction
 
 import cl from './App.module.css';
 import Logotype from "../Logotype/Logotype";
+import AircraftFly from "../UI/Animations/AircraftFly/AircraftFly";
 
 function App() {
     const { error, tickets } = useSelector(state => state);
