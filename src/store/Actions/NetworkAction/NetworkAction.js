@@ -6,9 +6,15 @@ const getTicketsStart = () => {
     }
 }
 
-const getTicketsSuccess = (payload) => {
+const getTicketsSuccess = () => {
     return {
-        type: 'GET_TICKETS_SUCCESS',
+        type: 'GET_TICKETS_SUCCESS'
+    }
+}
+
+const getPartTicketsSuccess = (payload) => {
+    return {
+        type: 'GET_PART_TICKETS_SUCCESS',
         payload,
     }
 }
@@ -24,7 +30,7 @@ export const fetchDataFromServer = () => {
     return async (dispatch) => {
         try {
             let tickets = [];
-            let newPartTickets;
+            let newPartTickets, isLoading = true;
 
             const networkService = new NetworkService();
             dispatch(getTicketsStart());
@@ -33,7 +39,7 @@ export const fetchDataFromServer = () => {
 
             newPartTickets = await networkService.getTickets(apiKey.searchId);
             tickets = [...tickets, ...newPartTickets.tickets];
-            dispatch(getTicketsSuccess(tickets));
+            dispatch(getPartTicketsSuccess(tickets));
             console.log(tickets);
 
             async function fetchTickets() {
@@ -44,10 +50,11 @@ export const fetchDataFromServer = () => {
                   if (!newPartTickets.stop) {
                       setTimeout(fetchTickets, 250);
                   } else {
-                      dispatch(getTicketsSuccess(tickets));
+                      isLoading = false;
+                      dispatch(getPartTicketsSuccess(tickets));
                   }
               } catch (e) {
-                  dispatch(getTicketsSuccess(tickets));
+                  dispatch(getPartTicketsSuccess(tickets));
               }
             };
 

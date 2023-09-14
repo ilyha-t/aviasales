@@ -1,0 +1,18 @@
+.exception__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.exception__image {
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
+}
+
+.exception__message {
+    text-align: center;
+    font-weight: 400;
+}

@@ -17,8 +17,10 @@ function reducer(state = initialState, action) {
     switch (action.type) {
         case 'GET_TICKETS_START':
             return {...state, loading: true, error: null};
+        case 'GET_PART_TICKETS_SUCCESS':
+            return {...state, loading: true, tickets: {tickets: [...action.payload]}};
         case 'GET_TICKETS_SUCCESS':
-            return {...state, loading: false,error: null, tickets: {tickets: [...action.payload]}};
+            return {...state, loading: false, error: null};
         case 'GET_TICKETS_ERROR':
             return {...state, loading: false, error: action.payload};
         case 'SORT_BYE_PRICE':

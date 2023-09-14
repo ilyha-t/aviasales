@@ -9,6 +9,7 @@ import {applyFilterTickets} from "../../store/Actions/TicketAction/TicketsAction
 import cl from './App.module.css';
 import Logotype from "../Logotype/Logotype";
 import AircraftFly from "../UI/Animations/AircraftFly/AircraftFly";
+import LoadingIndicator from "../UI/Animations/LoadingIndicator/LoadingIndicator";
 
 function App() {
     const { error, tickets } = useSelector(state => state);
@@ -23,6 +24,7 @@ function App() {
             {!error ?
                 <Fragment>
                     <Logotype />
+                    <LoadingIndicator />
                     <section className={cl.app__search}>
                         <TransfersFilter />
                         <TicketsList />
