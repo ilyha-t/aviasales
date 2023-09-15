@@ -1,0 +1,43 @@
+.airplane__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.airplane__loading__title {
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.airplane__container {
+    position: relative;
+    width: 100px;
+    height: 50px;
+}
+
+.airplane {
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    top: calc(50% - 50px); /* Центрирование самолета вертикально */
+    left: calc(50% - 50px); /* Центрирование самолета горизонтально */
+    animation: 4s linear infinite flyAircraft; /* Увеличил длительность и использую linear для плавного движения */
+    animation-fill-mode: forwards;
+    border-radius: 50%; /* Округление углов для создания круглой формы */
+}
+
+@keyframes flyAircraft {
+    0% {
+        top: calc(50% - 100px);
+        left: calc(50% - 50px);
+        transform: rotate(0deg); /* Используем transform для поворота самолета */
+    }
+
+    100% {
+        top: calc(50% - 100px);
+        left: calc(50% - 50px);
+        transform: rotate(360deg); /* Завершаем один оборот вокруг центра */
+    }
+}

@@ -3,16 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 
 import TransfersFilter from "../Filter/TransfersFilter/TransfersFilter";
 import TicketsList from "../TicketsList/TicketsList";
-import {fetchDataFromServer} from "../../store/Actions/NetworkAction/NetworkAction";
-import {applyFilterTickets} from "../../store/Actions/TicketAction/TicketsAction";
+import { fetchDataFromServer, getTicketsSuccess} from "../../store/Actions/NetworkAction/NetworkAction";
 
 import cl from './App.module.css';
 import Logotype from "../Logotype/Logotype";
-import AircraftFly from "../UI/Animations/AircraftFly/AircraftFly";
 import LoadingIndicator from "../UI/Animations/LoadingIndicator/LoadingIndicator";
+import UnexpectedException from "../Exceptions/UnexpectedException/UnexpectedException";
 
 function App() {
-    const { error, tickets } = useSelector(state => state);
+    const { error, tickets, loading } = useSelector(state => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,13 +23,15 @@ function App() {
             {!error ?
                 <Fragment>
                     <Logotype />
-                    <LoadingIndicator />
-                    <section className={cl.app__search}>
-                        <TransfersFilter />
-                        <TicketsList />
+                    <section className={cl.app__search__section}>
+                        {loading && <LoadingIndicator /> }
+                        <div className={cl.app__search}>
+                            <TransfersFilter />
+                            <TicketsList />
+                        </div>
                     </section>
                 </Fragment> :
-                <div>Технические неполадки! Попробуйте перезагрузить страницу.</div>
+                <UnexpectedException />
             }
         </div>
     );

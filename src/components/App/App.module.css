@@ -4,6 +4,11 @@
     padding-top: 50px;
 }
 
+.app__search__section {
+    width: 780px;
+    margin: 0 auto;
+}
+
 .app__search {
     display: flex;
     justify-content: center;

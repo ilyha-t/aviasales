@@ -1,0 +1,27 @@
+.loading__information__container {
+    width: 100%;
+    position: relative;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: gradientAnimation 2s linear infinite;
+    color: transparent; /* Скрыть текст, чтобы он не мешал фоновой анимации */
+    display: inline-block;
+    padding: 10px; /* Добавьте отступы по вашему усмотрению */
+    border-radius: 5px; /* Добавьте скругление углов, если необходимо */
+}
+
+.loading__text {
+    display: block;
+    text-align: center ;
+    font-weight: 400;
+    color: #333; /* Цвет текста, который должен быть виден поверх фона */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}

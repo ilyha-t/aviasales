@@ -6,7 +6,8 @@ const getTicketsStart = () => {
     }
 }
 
-const getTicketsSuccess = () => {
+export const getTicketsSuccess = () => {
+    console.log('success');
     return {
         type: 'GET_TICKETS_SUCCESS'
     }
@@ -30,7 +31,7 @@ export const fetchDataFromServer = () => {
     return async (dispatch) => {
         try {
             let tickets = [];
-            let newPartTickets, isLoading = true;
+            let newPartTickets;
 
             const networkService = new NetworkService();
             dispatch(getTicketsStart());
@@ -50,11 +51,11 @@ export const fetchDataFromServer = () => {
                   if (!newPartTickets.stop) {
                       setTimeout(fetchTickets, 250);
                   } else {
-                      isLoading = false;
                       dispatch(getPartTicketsSuccess(tickets));
                   }
               } catch (e) {
                   dispatch(getPartTicketsSuccess(tickets));
+                  dispatch(getTicketsSuccess());
               }
             };
 

@@ -1,0 +1,17 @@
+.unexpected__exception {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.unexpected__exception__img {
+    width: 100px;
+    height: 100px;
+}
+
+.unexpected__exception__title {
+    margin-top: 10px;
+    font-weight: 400;
+    text-align: center;
+}

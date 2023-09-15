@@ -7,6 +7,7 @@ import PaginationButton from "../UI/Buttons/PaginationButton/PaginationButton";
 
 import cl from './TicketsList.module.css';
 import NotFoundException from "../Exceptions/NotFoundException/NotFoundException";
+import AircraftFly from "../UI/Animations/AircraftFly/AircraftFly";
 
 function TicketsList() {
     const { tickets, showTicket, filters } = useSelector(state => state);
@@ -25,7 +26,7 @@ function TicketsList() {
     function showFilteredTickets() {
         const ticketsLength = tickets.tickets.length;
         if (ticketsLength === 0) {
-            return <div>Ничего не нашёл!</div>;
+            return <AircraftFly />;
         }
 
         const applyFilters = tickets.tickets.filter(ticket => isFitTicket(filters, ticket));
