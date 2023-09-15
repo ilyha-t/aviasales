@@ -6,8 +6,7 @@ const getTicketsStart = () => {
     }
 }
 
-export const getTicketsSuccess = () => {
-    console.log('success');
+const getTicketsSuccess = () => {
     return {
         type: 'GET_TICKETS_SUCCESS'
     }
@@ -41,13 +40,11 @@ export const fetchDataFromServer = () => {
             newPartTickets = await networkService.getTickets(apiKey.searchId);
             tickets = [...tickets, ...newPartTickets.tickets];
             dispatch(getPartTicketsSuccess(tickets));
-            console.log(tickets);
 
             async function fetchTickets() {
               try {
                   newPartTickets = await networkService.getTickets(apiKey.searchId);
                   tickets = [...tickets, ...newPartTickets.tickets];
-                  console.log(tickets);
                   if (!newPartTickets.stop) {
                       setTimeout(fetchTickets, 250);
                   } else {

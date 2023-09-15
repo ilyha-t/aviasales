@@ -9,10 +9,6 @@ function FilterItem({ filter }) {
     const { filters, tickets } = useSelector(state => state);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log(filters);
-    }, [filters])
-
     return (
         <div className={cl.filter__item}>
             <input type="checkbox"

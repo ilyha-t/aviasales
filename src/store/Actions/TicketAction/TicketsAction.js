@@ -38,29 +38,23 @@ const filterTickets = (filters, filter) => {
     const matchFilters = (filter) => {
         // Если нажата кнопка "Все" и все чекбоксы отмечены выделенным - снимаем все чекбоксы
         if (filter.id === 1 && filters.checked.length === filters.total) {
-            console.log({...filters, checked: [], total_stop: []})
             return {...filters, checked: [], total_stop: []};
             // Если нажата кнопка "Все" - выбираем все чекбоксы
         } else if(filter.id === 1 && filters.checked.length !== filters.total) {
-            console.log({...filters, checked: [1,2,3,4,5], total_stop: [-1,0,1,2,3]})
             return {...filters, checked: [1,2,3,4,5], total_stop: [-1,0,1,2,3]};
         //    Если выбранный чекбокс был ранее активен и нажата кнопка "Все" - снимаем активацию выбранного чекбокса и "Все"
         } else if(filters.checked.indexOf(filter.id) !== -1 && filters.checked.indexOf(1) !== -1) {
-            console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1),total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop && filId !== -1)})
             return {...filters, checked: filters.checked.filter(filId => filId !== filter.id && filId !== 1),total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop && filId !== -1)}
             //    Если выбранный чекбокс был ранее активен - снимаем активацию выбранного чекбокса
         } else if(filters.checked.indexOf(filter.id) !== -1) {
-            console.log({...filters, checked: filters.checked.filter(filId => filId !== filter.id), total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop)})
             return {...filters, checked: filters.checked.filter(filId => filId !== filter.id), total_stop: filters.total_stop.filter(filId => filId !== filter.total_stop)}
         }
         //    Если выбраны все чекбоксы - делаем "Все" активным
          else if(filters.checked.indexOf(filter.id) === -1 && [...filters.checked, filter.id].length === filters.total - 1) {
-             console.log({...filters, checked: [...filters.checked, filter.id, 1], total_stop: [...filters.total_stop, filter.total_stop, -1]})
             return {...filters, checked: [...filters.checked, filter.id, 1], total_stop: [...filters.total_stop, filter.total_stop, -1]}
         }
         //    Если выбранный чекбокс был ранее неактивен - делаем его активным
         else if(filters.checked.indexOf(filter.id) === -1) {
-            console.log({...filters, checked: [...filters.checked, filter.id], total_stop: [...filters.total_stop, filter.total_stop]})
             return {...filters, checked: [...filters.checked, filter.id], total_stop: [...filters.total_stop, filter.total_stop]}
         }
 
@@ -69,33 +63,4 @@ const filterTickets = (filters, filter) => {
     return {...action, payload: matchFilters(filter) };
 }
 
-const applyFilterTickets = (tickets, filters) => {
-    console.log(tickets, filters);
-    // const applyFilters = (tickets, filters) => {
-    //     // Если выбран фильтр Все - возвращаем без сортировки
-    //     if(filters.checked.length === filters.total) {
-    //         return tickets;
-    //     } else {
-    //         let applyFiltersTickets = [];
-    //         for (const ticket of tickets) {
-    //             let isGood = false;
-    //             for(const segment of ticket.segments) {
-    //                 if(filters.indexOf(segment.stops.length) !== -1) {
-    //                     isGood = true;
-    //                 }
-    //             }
-    //             if(isGood) {
-    //                 applyFiltersTickets.push(ticket);
-    //             }
-    //         }
-    //         return applyFiltersTickets;
-    //     }
-    // }
-    //
-    // return {
-    //     type: 'APPLY_SELECTED_FILTERS',
-    //     payload: applyFilters(tickets, filters),
-    // };
-};
-
-export { showMoreTickets, sortByePrice, sortByeDuration, sortByeOptimal, filterTickets, applyFilterTickets };
+export { showMoreTickets, sortByePrice, sortByeDuration, sortByeOptimal, filterTickets };

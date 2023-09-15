@@ -6,10 +6,6 @@ import cl from './LoadingIndicator.module.css';
 function LoadingIndicator() {
     const state = useSelector(state => state);
 
-    useEffect(() => {
-        console.log(state)
-    }, [state])
-
     return (
         <div className={cl.loading__information__container}>
             <span className={cl.loading__text}>
