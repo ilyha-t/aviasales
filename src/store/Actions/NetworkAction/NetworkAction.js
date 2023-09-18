@@ -37,26 +37,20 @@ export const fetchDataFromServer = () => {
 
             const apiKey = await networkService.initiationSearch();
 
-            newPartTickets = await networkService.getTickets(apiKey.searchId);
-            tickets = [...tickets, ...newPartTickets.tickets];
-            dispatch(getPartTicketsSuccess(tickets));
+            do {
+                try {
+                    newPartTickets = await networkService.getTickets(apiKey.searchId);
+                    tickets = [...tickets, ...newPartTickets.tickets];
+                    dispatch(getPartTicketsSuccess(tickets));
+                } catch (e) {
+                    console.error('При получении данных произошла ошибка:', e.message);
+                    if (tickets.length == 0) {
+                        newPartTickets = {tickets, stop: false};
+                    }
+                }
+            } while(!newPartTickets.stop);
 
-            async function fetchTickets() {
-              try {
-                  newPartTickets = await networkService.getTickets(apiKey.searchId);
-                  tickets = [...tickets, ...newPartTickets.tickets];
-                  if (!newPartTickets.stop) {
-                      setTimeout(fetchTickets, 250);
-                  } else {
-                      dispatch(getPartTicketsSuccess(tickets));
-                  }
-              } catch (e) {
-                  dispatch(getPartTicketsSuccess(tickets));
-                  dispatch(getTicketsSuccess());
-              }
-            };
-
-            fetchTickets();
+            dispatch(getTicketsSuccess());
         } catch(e) {
             dispatch(getTicketsError(e));
         }

@@ -33,18 +33,31 @@ function SegmentRouteItem({ segment }) {
         ${hoursLanding <= 9 ? '0' + hoursLanding: hoursLanding}:${minutesLanding <= 9 ? '0' + minutesLanding: minutesLanding}`;
     }
 
+    function mathWordTransfer() {
+        const stops = segment.stops.length;
+        if (stops == 0) {
+            return 'без пересадок';
+        } else if (stops == 1) {
+            return `${stops} пересадка`;
+        } else if (stops > 1 && stops < 4) {
+            return `${stops} пересадки`;
+        } else {
+            return `${stops} пересадок`;
+        }
+    }
+
     return (
         <ul className={cl.segment__route__item}>
             <li>
                 <h4 className={cl.segment__title}>{segment.origin} - {segment.destination}</h4>
-                <span className={cl.segment__time} onClick={() => console.log(segment)}>{parseTimeFly(segment.date, segment.duration)}</span>
+                <span className={cl.segment__time}>{parseTimeFly(segment.date, segment.duration)}</span>
             </li>
             <li>
                 <h4 className={cl.segment__title}>В пути</h4>
                 <span className={cl.segment__time}>{calcDurationFly(segment.duration)}</span>
             </li>
             <li>
-                <h4 className={cl.segment__title}>Пересадки</h4>
+                <h4 className={cl.segment__title}>{mathWordTransfer()}</h4>
                 <span className={cl.segment__time}>
                     {segment.stops.length > 0 ? segment.stops.join(', ') : 'Прямой'}
                 </span>
