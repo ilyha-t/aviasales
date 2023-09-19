@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import cl from './SegmentRouteItem.module.css';
 
 function SegmentRouteItem({ segment }) {

@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React from "react";
 import SegmentRoute from "../SegmentRoute/SegmentRoute";
-import NetworkService from "../../services/Network/NetworkService";
 
 import cl from './TicketCardItem.module.css';
 

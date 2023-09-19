@@ -30,7 +30,7 @@ export const fetchDataFromServer = () => {
     return async (dispatch) => {
         try {
             let tickets = [];
-            let newPartTickets;
+            let newPartTickets = {tickets: [], stop: false};
 
             const networkService = new NetworkService();
             dispatch(getTicketsStart());
@@ -44,9 +44,6 @@ export const fetchDataFromServer = () => {
                     dispatch(getPartTicketsSuccess(tickets));
                 } catch (e) {
                     console.error('При получении данных произошла ошибка:', e.message);
-                    if (tickets.length == 0) {
-                        newPartTickets = {tickets, stop: false};
-                    }
                 }
             } while(!newPartTickets.stop);
 

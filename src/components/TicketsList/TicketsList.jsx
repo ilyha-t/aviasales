@@ -1,5 +1,5 @@
-import React, {Fragment, useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {Fragment} from "react";
+import {useSelector} from "react-redux";
 
 import TabFilter from "../Filter/TabFilter/TabFilter";
 import TicketCardItem from "../TicketCardItem/TicketCardItem";
